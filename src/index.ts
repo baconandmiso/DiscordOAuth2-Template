@@ -2,14 +2,17 @@ import express from "express";
 import session from "express-session";
 import passport, { Profile } from "passport";
 import DiscordStrategy from "passport-discord";
-import axios from "axios";
+import env from "dotenv";
+
+env.config();
 
 const app = express();
 const port: number = 8030;
 
-const CLIENT_ID: string = "";
-const CLIENT_SECRET: string = "";
-const CALLBACK_URI: string = "";
+const CLIENT_ID: string = process.env.CLIENT_ID!;
+const CLIENT_SECRET: string = process.env.CLIENT_SECRET!;
+const CALLBACK_URI: string = process.env.CALLBACK_URI!;
+const COOKIE_SECRET: string = process.env.COOKIE_SECRET!;
 
 passport.serializeUser((user: Express.User, done) => {
     done(null, user);
@@ -31,7 +34,7 @@ passport.use(new DiscordStrategy({
 }));
 
 app.use(session({
-    secret: "",
+    secret: COOKIE_SECRET,
     resave: false,
     saveUninitialized: false
 }));
