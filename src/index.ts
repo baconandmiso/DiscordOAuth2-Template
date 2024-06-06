@@ -7,7 +7,7 @@ import env from "dotenv";
 env.config();
 
 const app = express();
-const port: number = 8030;
+const port: number = parseInt(process.env.PORT!);
 
 const CLIENT_ID: string = process.env.CLIENT_ID!;
 const CLIENT_SECRET: string = process.env.CLIENT_SECRET!;
